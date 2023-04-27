@@ -1,0 +1,31 @@
+@RestController
+@RequestMapping("/product-matrices")
+public class ProductMatrixController {
+
+    @Autowired
+    private ProductMatrixService productMatrixService;
+
+    @PostMapping
+    public ResponseEntity<ProductMatrix> createProductMatrix(@RequestBody ProductMatrix productMatrix) {
+        ProductMatrix createdProductMatrix = productMatrixService.createProductMatrix(productMatrix);
+        return ResponseEntity.created(URI.create("/product-matrices/" + createdProductMatrix.getId())).body(createdProductMatrix);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductMatrix> updateProductMatrix(@PathVariable("id") Long id, @RequestBody ProductMatrix productMatrix) {
+        ProductMatrix updatedProductMatrix = productMatrixService.updateProductMatrix(id, productMatrix);
+        return ResponseEntity.ok(updatedProductMatrix);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductMatrix> getProductMatrix(@PathVariable("id") Long id) {
+        ProductMatrix productMatrix = productMatrixService.getProductMatrix(id);
+        return ResponseEntity.ok(productMatrix);
+    }
+
+    @PostMapping("/{id}/loan-approval")
+    public ResponseEntity<LoanApprovalResponse> approveLoan(@PathVariable("id") Long id, @RequestBody LoanApplication loanApplication) {
+        LoanApprovalResponse loanApprovalResponse = productMatrixService.approveLoan(id, loanApplication);
+        return ResponseEntity.ok(loanApprovalResponse);
+    }
+}
