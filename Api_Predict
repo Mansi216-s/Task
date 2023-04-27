@@ -1,0 +1,13 @@
+POST /lenders/{lender_id}/predict
+Request body: {
+    "applicant_age": "20",
+    "credit_score": "450",
+    "loan_amount": "10000",
+    
+}
+Response body: [
+    {
+        "lender_id": "101",
+        "confidence_score": "90.23"
+    }
+]
