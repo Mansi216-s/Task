@@ -1,0 +1,12 @@
+GET /product-matrices/{id}
+
+POST /product-matrices/{id}/loan-approval
+Request body: {
+    "applicant_age": "20",
+    "credit_score": "500",
+    "loan_amount": "5000"
+}
+Response body: {
+    "approved": "",
+    "reason": ""
+}
