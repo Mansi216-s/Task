@@ -1,0 +1,26 @@
+@RestController
+@RequestMapping("/applications")
+public class ApplicationController {
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @PostMapping
+    public ResponseEntity<Application> createApplication(@RequestBody Application application) {
+        application.setApplicationStatus(0); // set initial application status as declined
+        Application savedApplication = applicationRepository.save(application);
+        return ResponseEntity.created(URI.create("/applications/" + savedApplication.getId()))
+                .body(savedApplication);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Application> getApplication(@PathVariable("id") Long id) {
+        return applicationRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Application> updateApplicationStatus(@PathVariable("id")
+
+
