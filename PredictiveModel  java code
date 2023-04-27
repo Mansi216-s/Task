@@ -1,0 +1,13 @@
+@RestController
+@RequestMapping("/lenders/{lender_id}")
+public class PredictiveModelController {
+
+    @Autowired
+    private PredictiveModelService predictiveModelService;
+
+    @PostMapping("/predict")
+    public ResponseEntity<List<PredictiveModelResult>> predict(@PathVariable("lender_id") String lenderId, @RequestBody LoanApplication loanApplication) {
+        List<PredictiveModelResult> predictiveModelResults = predictiveModelService.predict(lenderId, loanApplication);
+        return ResponseEntity.ok(predictiveModelResults);
+    }
+}
