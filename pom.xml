@@ -16,6 +16,6 @@
         <artifactId>liquibase-hibernate5</artifactId>
         <version>4.0.0</version>
     </dependency>
-    <!-- Add database driver for your specific database -->
+    
 </dependencies>
 
