@@ -7,13 +7,10 @@ public class PredictiveModelService {
     private LenderService lenderService;
 
     public List<PredictiveModelResult> predict(String lenderId, LoanApplication loanApplication) {
-        // Retrieve the machine learning model for the lender
+       
         MLModel mlModel = lenderService.getMLModel(lenderId);
 
-        // Apply the model to the loan application data
-        // ...
-
-        // Calculate the confidence score for each lender
+        
         List<PredictiveModelResult> predictiveModelResults = new ArrayList<>();
         for (String lender : mlModel.getLenders()) {
             double confidenceScore = calculateConfidenceScore(mlModel.getPredictionsForLender(lender));
@@ -22,15 +19,14 @@ public class PredictiveModelService {
             }
         }
 
-        // Sort the lenders by confidence score in descending order
+        
         predictiveModelResults.sort(Comparator.comparing(PredictiveModelResult::getConfidenceScore).reversed());
 
-        // Return the top selected lenders
+        
         return predictiveModelResults.subList(0, Math.min(predictiveModelResults.size(), mlModel.getMaxLenders()));
     }
 
     private double calculateConfidenceScore(List<Double> predictions) {
-        // Calculate the confidence score based on the predictions
-        // ...
+        
     }
 }
