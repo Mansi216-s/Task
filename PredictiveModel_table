@@ -1,9 +1,23 @@
-CREATE TABLE PredictiveModelService (
-  lender_id INT NOT NULL,
-  product_id INT NOT NULL,
-  confidence_score DOUBLE PRECISION NOT NULL,
-  CONSTRAINT p_PredictiveModelService PRIMARY KEY (lender_id, product_id),
-  CONSTRAINT f_lender FOREIGN KEY (lender_id) REFERENCES Lender(id)
-);
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-CREATE INDEX idx_confidence_score ON PredictiveModelService (confidence_score DESC);
+    <changeSet id="create-predictive-model-table" author="me">
+        <createTable tableName="predictive_model">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="lender_id" type="bigint"/>
+            <column name="product_id" type="bigint"/>
+            <column name="confidence_score" type="decimal"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
