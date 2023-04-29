@@ -1,0 +1,9 @@
+CREATE TABLE PredictiveModelService (
+  lender_id INT NOT NULL,
+  product_id INT NOT NULL,
+  confidence_score DOUBLE PRECISION NOT NULL,
+  CONSTRAINT p_PredictiveModelService PRIMARY KEY (lender_id, product_id),
+  CONSTRAINT f_lender FOREIGN KEY (lender_id) REFERENCES Lender(id)
+);
+
+CREATE INDEX idx_confidence_score ON PredictiveModelService (confidence_score DESC);
