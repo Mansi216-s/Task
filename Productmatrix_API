@@ -1,12 +1,16 @@
-GET /product-matrices/{id}
+GET /lender/{lenderId}/products
 
-POST /product-matrices/{id}/loan-approval
-Request body: {
-    "applicant_age": "20",
-    "credit_score": "500",
-    "loan_amount": "5000"
-}
-Response body: {
-    "approved": "",
-    "reason": ""
-}
+
+[  {    "id": 1,    "name": "Personal Loan",    "min_loan_amount": 10000,    "applicant_age_requirement": ">18",    "credit_score_requirement": ">500",    "optional_rules": [      "Employment status must be full-time",      "No history of bankruptcy"    ]
+  },
+  {
+    "id": 2,
+    "name": "Car Loan",
+    "min_loan_amount": 15000,
+    "applicant_age_requirement": ">21",
+    "credit_score_requirement": ">600",
+    "optional_rules": [
+      ""
+    ]
+  }
+]
