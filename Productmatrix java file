@@ -1,0 +1,67 @@
+public class ProductMatrixService {
+    private int lenderId;
+    private int productId;
+    private int applicantAge;
+    private int creditScore;
+    private BigDecimal minLoanAmount;
+    private boolean optionalRules;
+    
+    public ProductMatrixService(int lenderId, int productId, int applicantAge, int creditScore,
+            BigDecimal minLoanAmount, boolean optionalRules) {
+        this.lenderId = lenderId;
+        this.productId = productId;
+        this.applicantAge = applicantAge;
+        this.creditScore = creditScore;
+        this.minLoanAmount = minLoanAmount;
+        this.optionalRules = optionalRules;
+    }
+
+    // Getters and setters
+    public int getLenderId() {
+        return lenderId;
+    }
+
+    public void setLenderId(int lenderId) {
+        this.lenderId = lenderId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public int getApplicantAge() {
+        return applicantAge;
+    }
+
+    public void setApplicantAge(int applicantAge) {
+        this.applicantAge = applicantAge;
+    }
+
+    public int getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore(int creditScore) {
+        this.creditScore = creditScore;
+    }
+
+    public BigDecimal getMinLoanAmount() {
+        return minLoanAmount;
+    }
+
+    public void setMinLoanAmount(BigDecimal minLoanAmount) {
+        this.minLoanAmount = minLoanAmount;
+    }
+
+    public boolean isOptionalRules() {
+        return optionalRules;
+    }
+
+    public void setOptionalRules(boolean optionalRules) {
+        this.optionalRules = optionalRules;
+    }
+}
