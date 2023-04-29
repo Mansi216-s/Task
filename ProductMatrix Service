@@ -1,31 +1,35 @@
-@RestController
-@RequestMapping("/product-matrices")
-public class ProductMatrixController {
+public class ProductMatrixService {
 
-    @Autowired
-    private ProductMatrixService productMatrixService;
+    private Connection connection;
 
-    @PostMapping
-    public ResponseEntity<ProductMatrix> createProductMatrix(@RequestBody ProductMatrix productMatrix) {
-        ProductMatrix createdProductMatrix = productMatrixService.createProductMatrix(productMatrix);
-        return ResponseEntity.created(URI.create("/product-matrices/" + createdProductMatrix.getId())).body(createdProductMatrix);
+    public ProductMatrixService(Connection connection) {
+        this.connection = connection;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductMatrix> updateProductMatrix(@PathVariable("id") Long id, @RequestBody ProductMatrix productMatrix) {
-        ProductMatrix updatedProductMatrix = productMatrixService.updateProductMatrix(id, productMatrix);
-        return ResponseEntity.ok(updatedProductMatrix);
-    }
+    public List<Product> getProductsForLender(long lenderId, int applicantAge, int creditScore, BigDecimal loanAmount) throws SQLException {
+        List<Product> products = new ArrayList<>();
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductMatrix> getProductMatrix(@PathVariable("id") Long id) {
-        ProductMatrix productMatrix = productMatrixService.getProductMatrix(id);
-        return ResponseEntity.ok(productMatrix);
-    }
+        String sql = "SELECT * FROM productMatrix WHERE lender_id = ? AND applicant_age > 18 AND credit_score > 500 AND min_loan_amount >= 10000 AND (optional_rule IS NULL OR optional_rule = ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setLong(1, lenderId);
+        statement.setBigDecimal(2, loanAmount);
 
-    @PostMapping("/{id}/loan-approval")
-    public ResponseEntity<LoanApprovalResponse> approveLoan(@PathVariable("id") Long id, @RequestBody LoanApplication loanApplication) {
-        LoanApprovalResponse loanApprovalResponse = productMatrixService.approveLoan(id, loanApplication);
-        return ResponseEntity.ok(loanApprovalResponse);
+        ResultSet result = statement.executeQuery();
+        while (result.next()) {
+            Product product = new Product();
+            product.setId(result.getLong("id"));
+            product.setName(result.getString("name"));
+            product.setLenderId(result.getLong("lender_id"));
+            product.setInterestRate(result.getDouble("interest_rate"));
+            product.setLoanTerm(result.getInt("loan_term"));
+            product.setMinLoanAmount(result.getBigDecimal("min_loan_amount"));
+            product.setMaxLoanAmount(result.getBigDecimal("max_loan_amount"));
+            product.setApplicantAge(result.getInt("applicant_age"));
+            product.setCreditScore(result.getInt("credit_score"));
+            product.setOptionalRule(result.getString("optional_rule"));
+            products.add(product);
+        }
+
+        return products;
     }
 }
