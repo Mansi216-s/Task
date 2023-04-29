@@ -1,0 +1,10 @@
+CREATE TABLE ProductMatrixService (
+  lender_id INT NOT NULL,
+  product_id INT NOT NULL,
+  applicant_age INT NOT NULL,
+  credit_score INT NOT NULL,
+  min_loan_amount DECIMAL(10, 2) NOT NULL,
+  optional_rules BOOLEAN NOT NULL,
+  CONSTRAINT p_ProductMatrixService PRIMARY KEY (lender_id, product_id),
+  CONSTRAINT f_lender FOREIGN KEY (lender_id) REFERENCES Lender(id)
+);
