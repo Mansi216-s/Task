@@ -1,10 +1,64 @@
-CREATE TABLE ProductMatrixService (
-  lender_id INT NOT NULL,
-  product_id INT NOT NULL,
-  applicant_age INT NOT NULL,
-  credit_score INT NOT NULL,
-  min_loan_amount DECIMAL(10, 2) NOT NULL,
-  optional_rules BOOLEAN NOT NULL,
-  CONSTRAINT p_ProductMatrixService PRIMARY KEY (lender_id, product_id),
-  CONSTRAINT f_lender FOREIGN KEY (lender_id) REFERENCES Lender(id)
-);
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="create-product-matrix-service-tables" author="me">
+        <createTable tableName="lender">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="min_loan_amount" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lender_id" type="bigint">
+                <constraints nullable="false"/>
+                <fkConstraint foreignTableName="lender" foreignColumnName="id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product_requirement">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+                <fkConstraint foreignTableName="product" foreignColumnName="id"/>
+            </column>
+            <column name="requirement" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="product_optional_rule">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+                <fkConstraint foreignTableName="product" foreignColumnName="id"/>
+            </column>
+            <column name="rule" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
