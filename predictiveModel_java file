@@ -1,0 +1,36 @@
+public class PredictiveModelService {
+    private int lenderId;
+    private int productId;
+    private double confidenceScore;
+    
+    public PredictiveModelService(int lenderId, int productId, double confidenceScore) {
+        this.lenderId = lenderId;
+        this.productId = productId;
+        this.confidenceScore = confidenceScore;
+    }
+
+    
+    public int getLenderId() {
+        return lenderId;
+    }
+
+    public void setLenderId(int lenderId) {
+        this.lenderId = lenderId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public double getConfidenceScore() {
+        return confidenceScore;
+    }
+
+    public void setConfidenceScore(double confidenceScore) {
+        this.confidenceScore = confidenceScore;
+    }
+}
