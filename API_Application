@@ -1,0 +1,26 @@
+POST/submit-application
+
+Request format:{
+"name": "Abel Mac",
+"age": 20,
+"credit_score": 500,
+"loan_amount": 5000,
+"lender_id": 101
+}
+
+
+Response:
+
+"application_id": "abc101",
+"status": "pending"
+}
+
+GET/check-application-status/{application_id}
+
+Response:
+
+{
+"application_id": "abc101",
+"status": "approved",
+"lender_id": 101
+}
