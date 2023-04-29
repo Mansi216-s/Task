@@ -1,0 +1,17 @@
+CREATE TABLE application (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  age INT,
+  credit_score INT,
+  loan_amount DECIMAL(10,2),
+  application_status INT,
+  lender_id BIGINT,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+//for new records:
+
+INSERT INTO application (name, age, credit_score, loan_amount, application_status, lender_id)
+VALUES ('Mansi', 26, 100, 1000.00, 1, 110);
