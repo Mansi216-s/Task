@@ -1,17 +1,24 @@
-CREATE TABLE application (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255),
-  age INT,
-  credit_score INT,
-  loan_amount DECIMAL(10,2),
-  application_status INT,
-  lender_id BIGINT,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-
-//for new records:
-
-INSERT INTO application (name, age, credit_score, loan_amount, application_status, lender_id)
-VALUES ('Mansi', 26, 100, 1000.00, 1, 110);
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="create-application-table" author="me">
+        <createTable tableName="application">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="age" type="int"/>
+            <column name="credit_score" type="int"/>
+            <column name="loan_amount" type="decimal"/>
+            <column name="application_status" type="int"/>
+            <column name="lender_id" type="bigint"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
